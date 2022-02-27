@@ -1,5 +1,18 @@
 const init = {
-	cars: ["Ford", "Chevy", "Honda"],
+	todos: [
+		{
+			title: 'Learn React', 
+			isComplete: false
+		},
+		{
+			title: 'Learn Redux',
+			isComplete: true
+		},
+		{
+			title: 'Learn React Native',
+			isComplete: false
+		}
+	],
 };
 
 export default function reducer(state = init, action, args) {
