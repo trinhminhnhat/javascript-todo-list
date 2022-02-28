@@ -1,27 +1,25 @@
 import html from "../core.js";
 import { connect } from "../store.js";
-import TodoItem from "./TodoItem.js"
+import TodoItem from "./TodoItem.js";
 
-function TodoList({ todos }) {
+function TodoList({ todos, filter, filters }) {
 	return html`
-        <section class="main">
-            <input id="toggle-all" class="toggle-all" type="checkbox">
-            <label for="toggle-all">Mark all as complete</label>
-            <ul class="todo-list">
-                ${todos.map(todo => {
-                    return TodoItem({ todo });
-                })}
-                <li>
-                    <div class="view">
-                        <input class="toggle" type="checkbox">
-                        <label>Buy a unicorn</label>
-                        <button class="destroy"></button>
-                    </div>
-                    <input class="edit" value="Rule the web">
-                </li>
-            </ul>
-        </section>
-    `;
+		<section class="main">
+			<input
+				id="toggle-all"
+				class="toggle-all"
+				type="checkbox"
+				onchange="dispatch('TOGGLE_ALL', this.checked)"
+				${todos.every(filters.completed) && "checked"}
+			/>
+			<label for="toggle-all">Mark all as complete</label>
+			<ul class="todo-list">
+				${todos.filter(filters[filter]).map((todo, index) => {
+					return TodoItem({ todo, index });
+				})}
+			</ul>
+		</section>
+	`;
 }
 
 export default connect()(TodoList);

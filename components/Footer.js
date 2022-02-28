@@ -1,23 +1,31 @@
 import html from "../core.js";
+import { connect } from "../store.js";
 
-function Footer() {
+function Footer({ todos, filter, filters }) {
+	console.log("filters: ", filters);
 	return html`
-        <footer class="footer">
-            <span class="todo-count"><strong>0</strong> item left</span>
-            <ul class="filters">
-                <li>
-                    <a class="selected" href="#/">All</a>
-                </li>
-                <li>
-                    <a href="#/active">Active</a>
-                </li>
-                <li>
-                    <a href="#/completed">Completed</a>
-                </li>
-            </ul>
-            <button class="clear-completed">Clear completed</button>
-        </footer>
-    `;
+		<footer class="footer">
+			<span class="todo-count"
+				><strong>${todos.filter(filters.active).length}</strong>
+				item left
+			</span>
+			<ul class="filters">
+				${Object.keys(filters).map((type) => {
+					return html`
+						<li>
+							<a
+								class="${filter === type && "selected"}"
+								href="#"
+                                onclick="dispatch('SET_FILTER', '${type}')"
+								>${type[0].toUpperCase() + type.slice(1)}</a
+							>
+						</li>
+					`;
+				})}
+			</ul>
+			<button class="clear-completed">Clear completed</button>
+		</footer>
+	`;
 }
 
-export default Footer;
+export default connect()(Footer);
