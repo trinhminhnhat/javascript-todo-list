@@ -16,14 +16,22 @@ function Footer({ todos, filter, filters }) {
 							<a
 								class="${filter === type && "selected"}"
 								href="#"
-                                onclick="dispatch('SET_FILTER', '${type}')"
+								onclick="dispatch('SET_FILTER', '${type}')"
 								>${type[0].toUpperCase() + type.slice(1)}</a
 							>
 						</li>
 					`;
 				})}
 			</ul>
-			<button class="clear-completed">Clear completed</button>
+			${todos.filter(filters.completed).length > 0 &&
+			html`
+				<button
+					class="clear-completed"
+					onclick="dispatch('REMOVE_COMPLETED')"
+				>
+					Clear completed
+				</button>
+			`}
 		</footer>
 	`;
 }

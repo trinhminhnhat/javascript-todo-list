@@ -8,6 +8,7 @@ const init = {
 		active: (todo) => !todo.isCompleted,
 		completed: (todo) => todo.isCompleted,
 	},
+	editIndex: null,
 };
 
 const actions = {
@@ -34,6 +35,27 @@ const actions = {
 	REMOVE({ todos }, index) {
 		todos.splice(index, 1);
 		storage.set(todos);
+	},
+	REMOVE_COMPLETED(state) {
+		state.todos = state.todos.filter(state.filters.active);
+		storage.set(state.todos);
+	},
+	EDIT_TODO(state, index) {
+		state.editIndex = index;
+	},
+	UPDATE_TODO(state, title) {
+		if (state.editIndex !== null) {
+			if (title) {
+				state.todos[state.editIndex].title = title;
+				state.editIndex = null;
+				storage.set(state.todos);
+			} else {
+				this.REMOVE(state, state.editIndex);
+			}
+		}
+	},
+	CANCEL_EDIT(state) {
+		state.editIndex = null;
 	},
 };
 
