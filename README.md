@@ -7,7 +7,7 @@ Build a todo list app from the custom UI library
 [**https://trinhminhnhat.github.io/javascript-todo-list/**](https://trinhminhnhat.github.io/javascript-todo-list/)
 
 ## Author
-[**Trinh Minh Nhat**](https://github.com/trinhminhnhat)
+[**Trịnh Minh Nhật**](https://github.com/trinhminhnhat)
 
 ## References
 [**https://fullstack.edu.vn/**](https://fullstack.edu.vn/)
